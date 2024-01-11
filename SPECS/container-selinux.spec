@@ -19,13 +19,12 @@
 
 Epoch: 2
 Name: container-selinux
-Version: 2.205.0
-Release: 2%{?dist}
+Version: 2.221.0
+Release: 1%{?dist}
 License: GPLv2
 URL: %{git0}
 Summary: SELinux policies for container runtimes
 Source0: %{git0}/archive/v%{version}.tar.gz
-Patch1: container-selinux-1957904.patch
 BuildArch: noarch
 BuildRequires: git
 BuildRequires: pkgconfig(systemd)
@@ -55,10 +54,21 @@ SELinux policy modules for use with container runtimes.
 %prep
 %autosetup -Sgit
 
-# Not present on old RHEL kernels
+# Remove some lines for RHEL 8 build
+%if ! 0%{?fedora} && 0%{?rhel} <= 8
+sed -i 's/watch watch_reads//' container.if
+sed -i 's/watch watch_reads//' container.te
+sed -i '/sysfs_t:dir watch/d' container.te
+sed -i '/systemd_chat_resolved/d' container.te
+%endif
+
+sed -i 's/man: install-policy/man:/' Makefile
+sed -i 's/install: man/install:/' Makefile
+
+# https://github.com/containers/container-selinux/issues/203
+%if 0%{?fedora} <= 37 || 0%{?rhel} <= 9
 sed -i '/user_namespace/d' container.te
-sed -i '/watch/d' container.te
-sed -i 's/watch\ watch_reads//g' container.if
+%endif
 
 %build
 make
@@ -117,35 +127,47 @@ fi
 %{_datadir}/udica/templates/*
 
 %changelog
-* Tue Mar 21 2023 Jindrich Novy <jnovy@redhat.com> - 2:2.205.0-2
-- remove watch statements breaking the build on RHEL8.8
-- Related: #2179466
+* Tue Aug 15 2023 Jindrich Novy <jnovy@redhat.com> - 2:2.221.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.221.0
+- Related: #2176055
+
+* Mon Jul 03 2023 Jindrich Novy <jnovy@redhat.com> - 2:2.219.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.219.0
+- Related: #2176055
+
+* Thu Jun 08 2023 Jindrich Novy <jnovy@redhat.com> - 2:2.218.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.218.0
+- Related: #2176055
+
+* Wed May 24 2023 Jindrich Novy <jnovy@redhat.com> - 2:2.215.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.215.0
+- Related: #2176055
+
+* Tue May 16 2023 Jindrich Novy <jnovy@redhat.com> - 2:2.213.0-2
+- add watch statement removal from container.te
+- Related: #2176055
+
+* Mon May 15 2023 Jindrich Novy <jnovy@redhat.com> - 2:2.213.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.213.0
+- Related: #2176055
+
+* Wed May 03 2023 Jindrich Novy <jnovy@redhat.com> - 2:2.211.1-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.211.1
+- Related: #2176055
+
+* Fri Mar 24 2023 Jindrich Novy <jnovy@redhat.com> - 2:2.205.0-2
+- use conditionals from https://github.com/containers/container-selinux/blob/main/container-selinux.spec.rpkg
+- Related: #2176055
 
 * Tue Mar 21 2023 Jindrich Novy <jnovy@redhat.com> - 2:2.205.0-1
 - update to https://github.com/containers/container-selinux/releases/tag/v2.205.0
 - remove user_namespace class, thanks to Lokesh Mandvekar
-- Resolves: #2179466
+- Related: #2176055
 
-* Tue Feb 07 2023 Jindrich Novy <jnovy@redhat.com> - 2:2.199.0-2
+* Thu Mar 09 2023 Jindrich Novy <jnovy@redhat.com> - 2:2.199.0-1
 - revert back to https://github.com/containers/container-selinux/releases/tag/v2.199.0
   (2.200.0 fails to build as it relies on the new selinux-policy which is not there yet)
-- Related: #2123641
-
-* Tue Feb 07 2023 Jindrich Novy <jnovy@redhat.com> - 2:2.200.0-1
-- update to https://github.com/containers/container-selinux/releases/tag/v2.200.0
-- Related: #2123641
-
-* Mon Jan 30 2023 Jindrich Novy <jnovy@redhat.com> - 2:2.199.0-1
-- update to https://github.com/containers/container-selinux/releases/tag/v2.199.0
-- Related: #2123641
-
-* Fri Jan 06 2023 Jindrich Novy <jnovy@redhat.com> - 2:2.198.0-1
-- update to https://github.com/containers/container-selinux/releases/tag/v2.198.0
-- Related: #2123641
-
-* Thu Jan 05 2023 Jindrich Novy <jnovy@redhat.com> - 2:2.197.0-1
-- update to https://github.com/containers/container-selinux/releases/tag/v2.197.0
-- Related: #2123641
+- Related: #2176055
 
 * Thu Dec 15 2022 Jindrich Novy <jnovy@redhat.com> - 2:2.195.1-1
 - update to https://github.com/containers/container-selinux/releases/tag/v2.195.1
