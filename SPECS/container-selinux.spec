@@ -19,7 +19,7 @@
 
 Epoch: 3
 Name: container-selinux
-Version: 2.205.0
+Version: 2.221.0
 Release: 1%{?dist}
 License: GPLv2
 URL: %{git0}
@@ -54,8 +54,20 @@ SELinux policy modules for use with container runtimes.
 %prep
 %autosetup -Sgit
 
-# Not present on rhel 9
+# Remove some lines for RHEL 8 build
+%if ! 0%{?fedora} && 0%{?rhel} <= 8
+sed -i 's/watch watch_reads//' container.if
+sed -i '/sysfs_t:dir watch/d' container.te
+sed -i '/systemd_chat_resolved/d' container.te
+%endif
+
+sed -i 's/man: install-policy/man:/' Makefile
+sed -i 's/install: man/install:/' Makefile
+
+# https://github.com/containers/container-selinux/issues/203
+%if 0%{?fedora} <= 37 || 0%{?rhel} <= 9
 sed -i '/user_namespace/d' container.te
+%endif
 
 %build
 make
@@ -121,6 +133,67 @@ fi
 
 
 %changelog
+* Tue Aug 15 2023 Jindrich Novy <jnovy@redhat.com> - 3:2.221.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.221.0
+- Related: #2176063
+
+* Mon Jul 03 2023 Jindrich Novy <jnovy@redhat.com> - 3:2.219.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.219.0
+- Related: #2176063
+
+* Wed Jun 21 2023 Jindrich Novy <jnovy@redhat.com> - 3:2.218.0-3
+- rebuild
+- Resolves: #2181174
+
+* Wed Jun 21 2023 Jindrich Novy <jnovy@redhat.com> - 3:2.218.0-2
+- rebuild
+- Resolves: #2214567
+- Resolves: #2214569
+
+* Thu Jun 08 2023 Jindrich Novy <jnovy@redhat.com> - 3:2.218.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.218.0
+- Related: #2176063
+
+* Tue Jun 06 2023 Jindrich Novy <jnovy@redhat.com> - 3:2.217.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.217.0
+- Related: #2176063
+
+* Fri Jun 02 2023 Jindrich Novy <jnovy@redhat.com> - 3:2.216.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.216.0
+- Related: #2176063
+
+* Wed May 24 2023 Jindrich Novy <jnovy@redhat.com> - 3:2.215.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.215.0
+- Related: #2176063
+
+* Mon May 15 2023 Jindrich Novy <jnovy@redhat.com> - 3:2.213.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.213.0
+- Related: #2176063
+
+* Wed May 03 2023 Lokesh Mandvekar <lsm5@redhat.com> - 3:2.211.1-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.211.1
+- Related: #2176063
+
+* Mon Apr 24 2023 Jindrich Novy <jnovy@redhat.com> - 3:2.211.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.211.0
+- Related: #2176063
+
+* Tue Apr 11 2023 Jindrich Novy <jnovy@redhat.com> - 3:2.210.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.210.0
+- Related: #2176063
+
+* Mon Apr 03 2023 Jindrich Novy <jnovy@redhat.com> - 3:2.209.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.209.0
+- Related: #2176063
+
+* Fri Mar 24 2023 Jindrich Novy <jnovy@redhat.com> - 3:2.206.0-2
+- use conditionals from https://github.com/containers/container-selinux/blob/main/container-selinux.spec.rpkg
+- Related: #2176063
+
+* Wed Mar 22 2023 Jindrich Novy <jnovy@redhat.com> - 3:2.206.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.206.0
+- Related: #2176063
+
 * Mon Mar 20 2023 Jindrich Novy <jnovy@redhat.com> - 3:2.205.0-1
 - update to https://github.com/containers/container-selinux/releases/tag/v2.205.0
 - remove user_namespace class, thanks to Lokesh Mandvekar
