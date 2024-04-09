@@ -19,7 +19,7 @@
 
 Epoch: 2
 Name: container-selinux
-Version: 2.221.0
+Version: 2.229.0
 Release: 1%{?dist}
 License: GPLv2
 URL: %{git0}
@@ -35,11 +35,6 @@ Requires: selinux-policy >= %{selinux_policyver}
 Requires(post): selinux-policy-base >= %{selinux_policyver}
 Requires(post): selinux-policy-targeted >= %{selinux_policyver}
 Requires(post): policycoreutils >= 2.5-11
-%if 0%{?rhel} > 7 || 0%{?fedora}
-Requires(post): policycoreutils-python-utils
-%else
-Requires(post): policycoreutils-python
-%endif
 Requires(post): libselinux-utils
 Requires(post): sed
 Obsoletes: %{name} <= 2:1.12.5-14
@@ -58,7 +53,8 @@ SELinux policy modules for use with container runtimes.
 %if ! 0%{?fedora} && 0%{?rhel} <= 8
 sed -i 's/watch watch_reads//' container.if
 sed -i 's/watch watch_reads//' container.te
-sed -i '/sysfs_t:dir watch/d' container.te
+sed -i '/watch;/d' container.te
+sed -i '/watch;/d' container.if
 sed -i '/systemd_chat_resolved/d' container.te
 %endif
 
@@ -127,6 +123,10 @@ fi
 %{_datadir}/udica/templates/*
 
 %changelog
+* Wed Mar 13 2024 Jindrich Novy <jnovy@redhat.com> - 2:2.229.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.229.0
+- Resolves: RHEL-28923
+
 * Tue Aug 15 2023 Jindrich Novy <jnovy@redhat.com> - 2:2.221.0-1
 - update to https://github.com/containers/container-selinux/releases/tag/v2.221.0
 - Related: #2176055
