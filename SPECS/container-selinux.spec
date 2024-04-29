@@ -19,7 +19,7 @@
 
 Epoch: 3
 Name: container-selinux
-Version: 2.221.0
+Version: 2.229.0
 Release: 1%{?dist}
 License: GPLv2
 URL: %{git0}
@@ -35,11 +35,6 @@ Requires: selinux-policy >= %{selinux_policyver}
 Requires(post): selinux-policy-base >= %{selinux_policyver}
 Requires(post): selinux-policy-targeted >= %{selinux_policyver}
 Requires(post): policycoreutils >= 2.5-11
-%if 0%{?rhel} > 7 || 0%{?fedora}
-Requires(post): policycoreutils-python-utils
-%else
-Requires(post): policycoreutils-python
-%endif
 Requires(post): libselinux-utils
 Requires(post): sed
 Obsoletes: %{name} <= 2:1.12.5-14
@@ -133,6 +128,14 @@ fi
 
 
 %changelog
+* Wed Mar 13 2024 Jindrich Novy <jnovy@redhat.com> - 3:2.229.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.229.0
+- Resolves: RHEL-28925
+
+* Wed Aug 30 2023 Jindrich Novy <jnovy@redhat.com> - 3:2.221.1-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.221.1
+- Related: #2176063
+
 * Tue Aug 15 2023 Jindrich Novy <jnovy@redhat.com> - 3:2.221.0-1
 - update to https://github.com/containers/container-selinux/releases/tag/v2.221.0
 - Related: #2176063
