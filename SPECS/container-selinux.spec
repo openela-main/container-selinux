@@ -20,7 +20,7 @@
 Epoch: 2
 Name: container-selinux
 Version: 2.229.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2
 URL: %{git0}
 Summary: SELinux policies for container runtimes
@@ -123,9 +123,42 @@ fi
 %{_datadir}/udica/templates/*
 
 %changelog
-* Wed Mar 13 2024 Jindrich Novy <jnovy@redhat.com> - 2:2.229.0-1
+* Tue Jan 23 2024 Jindrich Novy <jnovy@redhat.com> - 2:2.229.0-2
+- remove watch statements properly for RHEL8 and lower
+- Related: Jira:RHEL-2110
+
+* Tue Jan 23 2024 Jindrich Novy <jnovy@redhat.com> - 2:2.229.0-1
 - update to https://github.com/containers/container-selinux/releases/tag/v2.229.0
-- Resolves: RHEL-28923
+- Related: Jira:RHEL-2110
+
+* Fri Jan 19 2024 Jindrich Novy <jnovy@redhat.com> - 2:2.228.1-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.228.1
+- Related: Jira:RHEL-2110
+
+* Thu Jan 11 2024 Jindrich Novy <jnovy@redhat.com> - 2:2.228.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.228.0
+- Related: Jira:RHEL-2110
+
+* Tue Jan 02 2024 Jindrich Novy <jnovy@redhat.com> - 2:2.227.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.227.0
+- Related: Jira:RHEL-2110
+
+* Thu Dec 07 2023 Jindrich Novy <lsm5@redhat.com> - 2:2.226.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.226.0
+- remove dependency on policycoreutils-python-utils as it pulls in python
+- Related: Jira:RHEL-2110
+
+* Thu Oct 12 2023 Jindrich Novy <jnovy@redhat.com> - 2:2.224.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.224.0
+- Related: Jira:RHEL-2110
+
+* Fri Sep 22 2023 Jindrich Novy <jnovy@redhat.com> - 2:2.222.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.222.0
+- Related: Jira:RHEL-2110
+
+* Mon Sep 04 2023 Jindrich Novy <jnovy@redhat.com> - 2:2.221.1-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.221.1
+- Related: Jira:RHEL-2110
 
 * Tue Aug 15 2023 Jindrich Novy <jnovy@redhat.com> - 2:2.221.0-1
 - update to https://github.com/containers/container-selinux/releases/tag/v2.221.0
