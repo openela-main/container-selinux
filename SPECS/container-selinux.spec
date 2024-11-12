@@ -19,7 +19,7 @@
 
 Epoch: 3
 Name: container-selinux
-Version: 2.229.0
+Version: 2.232.1
 Release: 1%{?dist}
 License: GPLv2
 URL: %{git0}
@@ -128,9 +128,47 @@ fi
 
 
 %changelog
-* Wed Mar 13 2024 Jindrich Novy <jnovy@redhat.com> - 3:2.229.0-1
+* Tue Jun 11 2024 Jindrich Novy <jnovy@redhat.com> - 3:2.232.1-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.232.1
+- Related: RHEL-27608
+
+* Tue May 07 2024 Jindrich Novy <jnovy@redhat.com> - 3:2.231.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.231.0
+- Related: RHEL-27608
+
+* Thu Mar 07 2024 Jindrich Novy <jnovy@redhat.com> - 3:2.230.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.230.0
+- Related: RHEL-27608
+
+* Tue Jan 23 2024 Jindrich Novy <jnovy@redhat.com> - 3:2.229.0-1
 - update to https://github.com/containers/container-selinux/releases/tag/v2.229.0
-- Resolves: RHEL-28925
+- Related: RHEL-2112
+
+* Fri Jan 19 2024 Jindrich Novy <jnovy@redhat.com> - 3:2.228.1-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.228.1
+- Related: RHEL-2112
+
+* Thu Jan 11 2024 Jindrich Novy <jnovy@redhat.com> - 3:2.228.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.228.0
+- Related: RHEL-2112
+
+* Tue Jan 02 2024 Jindrich Novy <jnovy@redhat.com> - 3:2.227.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.227.0
+- Related: RHEL-2112
+
+* Thu Dec 07 2023 Lokesh Mandvekar <lsm5@redhat.com> - 3:2.226.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.226.0
+- Remove dependency on policycoreutils-python-utils
+- Related: Jira:RHEL-2112
+- Related: Jira:RHEL-18316
+
+* Thu Oct 12 2023 Jindrich Novy <jnovy@redhat.com> - 3:2.224.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.224.0
+- Related: Jira:RHEL-2112
+
+* Tue Sep 19 2023 Jindrich Novy <jnovy@redhat.com> - 3:2.222.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.222.0
+- Related: Jira:RHEL-2112
 
 * Wed Aug 30 2023 Jindrich Novy <jnovy@redhat.com> - 3:2.221.1-1
 - update to https://github.com/containers/container-selinux/releases/tag/v2.221.1
