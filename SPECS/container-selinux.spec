@@ -30,13 +30,13 @@ Name: container-selinux
 %if %{defined copr_build}
 Epoch: 102
 %else
-Epoch: 3
+Epoch: 4
 %endif
 # Keep Version in upstream specfile at 0. It will be automatically set
 # to the correct value by Packit for copr and koji builds.
 # IGNORE this comment if you're looking at it in dist-git.
 Version: 2.235.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-only
 URL: https://github.com/containers/%{name}
 Summary: SELinux policies for container runtimes
@@ -135,9 +135,13 @@ if %{_sbindir}/selinuxenabled ; then
 fi
 
 %changelog
-* Mon Feb 24 2025 Jindrich Novy <jnovy@redhat.com> - 3:2.235.0-1
+* Mon Apr 07 2025 Jindrich Novy <jnovy@redhat.com> - 4:2.235.0-2
+- rebuild
+- Related: RHEL-85434
+
+* Mon Mar 31 2025 Jindrich Novy <jnovy@redhat.com> - 4:2.235.0-1
 - update to https://github.com/containers/container-selinux/releases/tag/v2.235.0
-- Resolves: RHEL-80473
+- Resolves: RHEL-85434
 
 * Wed Nov 27 2024 Jindrich Novy <jnovy@redhat.com> - 3:2.234.2-1
 - update to https://github.com/containers/container-selinux/releases/tag/v2.234.2
