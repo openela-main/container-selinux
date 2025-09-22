@@ -36,11 +36,14 @@ Epoch: 4
 # to the correct value by Packit for copr and koji builds.
 # IGNORE this comment if you're looking at it in dist-git.
 Version: 2.237.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-only
 URL: https://github.com/containers/%{name}
 Summary: SELinux policies for container runtimes
 Source0: %{url}/archive/v%{version}.tar.gz
+Patch0: https://github.com/containers/container-selinux/pull/405.patch
+Patch1: https://github.com/containers/container-selinux/pull/397-backport.patch
+Patch2: https://github.com/containers/container-selinux/pull/390-backport.patch
 BuildArch: noarch
 BuildRequires: make
 BuildRequires: git-core
@@ -138,6 +141,10 @@ if %{_sbindir}/selinuxenabled ; then
 fi
 
 %changelog
+* Fri Sep 19 2025 Jindrich Novy <jnovy@redhat.com> - 4:2.237.0-2
+- Update container-selinux package to resolve OCP 4.20 issues
+- Resolves: RHEL-115663
+
 * Wed May 28 2025 Lokesh Mandvekar <lsm5@redhat.com> - 4:2.237.0-1
 - bump to v2.237.0
 - Related: RHEL-85434
