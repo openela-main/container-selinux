@@ -35,8 +35,8 @@ Epoch: 4
 # Keep Version in upstream specfile at 0. It will be automatically set
 # to the correct value by Packit for copr and koji builds.
 # IGNORE this comment if you're looking at it in dist-git.
-Version: 2.235.0
-Release: 2%{?dist}
+Version: 2.240.0
+Release: 1%{?dist}
 License: GPL-2.0-only
 URL: https://github.com/containers/%{name}
 Summary: SELinux policies for container runtimes
@@ -114,6 +114,9 @@ fi
 #define license tag if not already defined
 %{!?_licensedir:%global license %doc}
 
+# Placeholder check to silence rpmlint
+%check
+
 %files
 %doc README.md
 %{_datadir}/selinux/*
@@ -135,10 +138,30 @@ if %{_sbindir}/selinuxenabled ; then
 fi
 
 %changelog
-* Mon Apr 07 2025 Jindrich Novy <jnovy@redhat.com> - 4:2.235.0-2
-- rebuild
-- Related: RHEL-85435
+* Mon Aug 11 2025 Jindrich Novy <jnovy@redhat.com> - 4:2.240.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.240.0
+- Related: RHEL-80817
 
-* Mon Mar 31 2025 Jindrich Novy <jnovy@redhat.com> - 3:2.235.0-1
+* Mon Jul 14 2025 Jindrich Novy <jnovy@redhat.com> - 4:2.239.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.239.0
+- Related: RHEL-80817
+
+* Mon Jun 02 2025 Jindrich Novy <jnovy@redhat.com> - 4:2.238.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.238.0
+- Related: RHEL-80817
+
+* Wed Apr 30 2025 Jindrich Novy <jnovy@redhat.com> - 4:2.237.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.237.0
+- Resolves: RHEL-85671
+
+* Fri Mar 14 2025 Jindrich Novy <jnovy@redhat.com> - 4:2.236.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.236.0
+- Resolves: RHEL-80476
+
+* Tue Mar 04 2025 Lokesh Mandvekar <lsm5@redhat.com> - 4:2.235.0-2
+- fetch TMT tests and plan from upstream
+- Resolves: RHEL-80817
+
+* Mon Feb 24 2025 Jindrich Novy <jnovy@redhat.com> - 4:2.235.0-1
 - update to https://github.com/containers/container-selinux/releases/tag/v2.235.0
-- Resolves: RHEL-85435
+- Resolves: RHEL-80476
