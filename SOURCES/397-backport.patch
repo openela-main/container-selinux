@@ -1,0 +1,13 @@
+diff -up container-selinux-2.240.0/container.te.397 container-selinux-2.240.0/container.te
+--- container-selinux-2.240.0/container.te.397	2025-09-19 07:01:45.736869927 +0200
++++ container-selinux-2.240.0/container.te	2025-09-19 07:02:11.869541486 +0200
+@@ -1347,6 +1347,9 @@ allow container_domain init_t:unix_strea
+ 
+ allow container_t proc_t:filesystem remount;
+ 
++# Allow containers to access shared runtime directories for OCI runtime optimizations
++allow container_t container_var_run_t:dir list_dir_perms;
++
+ # Container kvm - Policy for running kata containers
+ container_domain_template(container_kvm, container)
+ typeattribute container_kvm_t container_net_domain, container_user_domain;
