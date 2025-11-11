@@ -35,15 +35,12 @@ Epoch: 4
 # Keep Version in upstream specfile at 0. It will be automatically set
 # to the correct value by Packit for copr and koji builds.
 # IGNORE this comment if you're looking at it in dist-git.
-Version: 2.237.0
-Release: 2%{?dist}
+Version: 2.240.0
+Release: 1%{?dist}
 License: GPL-2.0-only
 URL: https://github.com/containers/%{name}
 Summary: SELinux policies for container runtimes
 Source0: %{url}/archive/v%{version}.tar.gz
-Patch0: https://github.com/containers/container-selinux/pull/405.patch
-Patch1: https://github.com/containers/container-selinux/pull/397-backport.patch
-Patch2: https://github.com/containers/container-selinux/pull/390-backport.patch
 BuildArch: noarch
 BuildRequires: make
 BuildRequires: git-core
@@ -114,19 +111,19 @@ fi
 %posttrans
 %selinux_relabel_post
 
-#define license tag if not already defined
-%{!?_licensedir:%global license %doc}
-
 # Empty placeholder check to silence rpmlint
 %check
+
+#define license tag if not already defined
+%{!?_licensedir:%global license %doc}
 
 %files
 %doc README.md
 %{_datadir}/selinux/*
 %dir %{_datadir}/containers/selinux
 %{_datadir}/containers/selinux/contexts
-%dir %{_datadir}/udica/templates/
 %dir %{_datadir}/udica
+%dir %{_datadir}/udica/templates/
 %{_datadir}/udica/templates/*
 # Ref: https://bugzilla.redhat.com/show_bug.cgi?id=2209120
 %{_mandir}/man8/container_selinux.8.gz
@@ -141,21 +138,33 @@ if %{_sbindir}/selinuxenabled ; then
 fi
 
 %changelog
-* Fri Sep 19 2025 Jindrich Novy <jnovy@redhat.com> - 4:2.237.0-2
-- Update container-selinux package to resolve OCP 4.20 issues
-- Resolves: RHEL-115663
+* Mon Aug 11 2025 Jindrich Novy <jnovy@redhat.com> - 4:2.240.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.240.0
+- Related: RHEL-80816
 
-* Wed May 28 2025 Lokesh Mandvekar <lsm5@redhat.com> - 4:2.237.0-1
-- bump to v2.237.0
-- Related: RHEL-85434
+* Mon Jul 14 2025 Jindrich Novy <jnovy@redhat.com> - 4:2.239.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.239.0
+- Related: RHEL-80816
 
-* Mon Apr 07 2025 Jindrich Novy <jnovy@redhat.com> - 4:2.235.0-2
-- rebuild
-- Related: RHEL-85434
+* Mon Jun 02 2025 Jindrich Novy <jnovy@redhat.com> - 4:2.238.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.238.0
+- Related: RHEL-80816
 
-* Mon Mar 31 2025 Jindrich Novy <jnovy@redhat.com> - 4:2.235.0-1
+* Wed Apr 30 2025 Jindrich Novy <jnovy@redhat.com> - 3:2.237.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.237.0
+- Related: RHEL-80816
+
+* Fri Mar 14 2025 Jindrich Novy <jnovy@redhat.com> - 3:2.236.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.236.0
+- Resolves: RHEL-80473
+
+* Tue Mar 04 2025 Lokesh Mandvekar <lsm5@redhat.com> - 3:2.235.0-2
+- sync TMT tests and plan from upstream
+- Resolves: RHEL-80816
+
+* Mon Feb 24 2025 Jindrich Novy <jnovy@redhat.com> - 3:2.235.0-1
 - update to https://github.com/containers/container-selinux/releases/tag/v2.235.0
-- Resolves: RHEL-85434
+- Resolves: RHEL-80473
 
 * Wed Nov 27 2024 Jindrich Novy <jnovy@redhat.com> - 3:2.234.2-1
 - update to https://github.com/containers/container-selinux/releases/tag/v2.234.2
