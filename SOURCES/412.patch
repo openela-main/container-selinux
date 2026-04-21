@@ -1,0 +1,23 @@
+From d27647a022f01aa5f847383878cf67c616a5d98e Mon Sep 17 00:00:00 2001
+From: Peter Hunt <pehunt@redhat.com>
+Date: Fri, 7 Nov 2025 10:27:32 -0500
+Subject: [PATCH] container_engine_t: add necessary permissions to ssh in
+ userns container
+
+Signed-off-by: Peter Hunt <pehunt@redhat.com>
+---
+ container.te | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/container.te b/container.te
+index 63ae6bf..3af1b2b 100644
+--- a/container.te
++++ b/container.te
+@@ -1487,6 +1487,7 @@ allow container_engine_t kernel_t:system module_request;
+ allow container_engine_t null_device_t:chr_file { mounton setattr_chr_file_perms };
+ allow container_engine_t random_device_t:chr_file mounton;
+ allow container_engine_t self:netlink_tcpdiag_socket nlmsg_read;
++allow container_engine_t self:netlink_audit_socket nlmsg_relay;
+ allow container_engine_t urandom_device_t:chr_file mounton;
+ allow container_engine_t zero_device_t:chr_file mounton;
+ allow container_engine_t container_file_t:sock_file mounton;
