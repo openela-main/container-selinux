@@ -35,15 +35,12 @@ Epoch: 4
 # Keep Version in upstream specfile at 0. It will be automatically set
 # to the correct value by Packit for copr and koji builds.
 # IGNORE this comment if you're looking at it in dist-git.
-Version: 2.240.0
-Release: 4%{?dist}
+Version: 2.245.0
+Release: 1%{?dist}
 License: GPL-2.0-only
 URL: https://github.com/containers/%{name}
 Summary: SELinux policies for container runtimes
 Source0: %{url}/archive/v%{version}.tar.gz
-Patch1: https://github.com/containers/container-selinux/pull/397-backport.patch
-Patch2: https://github.com/containers/container-selinux/pull/390-backport.patch
-Patch3: https://patch-diff.githubusercontent.com/raw/containers/container-selinux/pull/412.patch
 BuildArch: noarch
 BuildRequires: make
 BuildRequires: git-core
@@ -141,18 +138,21 @@ if %{_sbindir}/selinuxenabled ; then
 fi
 
 %changelog
-* Tue Feb 24 2026 Jindrich Novy <jnovy@redhat.com> - 4:2.240.0-4
-- Fix Selinux type container_engine_t is missing permissions to allow write to audit log
-- Resolves: RHEL-150544
+* Wed Feb 04 2026 Jindrich Novy <jnovy@redhat.com> - 4:2.245.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.245.0
+- Related: RHEL-111919
 
-* Fri Oct 24 2025 Lokesh Mandvekar <lsm5@redhat.com> - 4:2.240.0-3
-- Delete 405.patch. This was reverted upstream. If it's needed for OCP, this
-can be revisited.
-- Resolves: RHEL-123749
+* Thu Dec 11 2025 Jindrich Novy <jnovy@redhat.com> - 4:2.244.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.244.0
+- Resolves: RHEL-112187
 
-* Fri Sep 19 2025 Jindrich Novy <jnovy@redhat.com> - 4:2.240.0-2
-- Update container-selinux package to resolve OCP 4.20 issues
-- Resolves: RHEL-115180
+* Tue Sep 16 2025 Jindrich Novy <jnovy@redhat.com> - 4:2.242.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.242.0
+- Related: RHEL-111919
+
+* Mon Sep 01 2025 Jindrich Novy <jnovy@redhat.com> - 4:2.241.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.241.0
+- Resolves: RHEL-112187
 
 * Mon Aug 11 2025 Jindrich Novy <jnovy@redhat.com> - 4:2.240.0-1
 - update to https://github.com/containers/container-selinux/releases/tag/v2.240.0
@@ -569,7 +569,7 @@ to spc_t even when setup with nosuid.
 - Label overlay directories under /var/lib/containers/ correctly
 
 * Mon May 21 2018 Dan Walsh <dwalsh@fedoraproject.org> - 2.61-1
-- Allow spc_t to load kernel modules from inside of container
+- Allow spc_t to load kernel modules from inside of container 
 
 * Mon May 21 2018 Dan Walsh <dwalsh@fedoraproject.org> - 2.60-1
 - Allow containers to list cgroup directories
