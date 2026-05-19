@@ -1,4 +1,4 @@
-%global debug_package   %{nil}
+%global debug_package %{nil}
 
 # container-selinux stuff (prefix with ds_ for version/release etc.)
 # Some bits borrowed from the openstack-selinux package
@@ -35,15 +35,12 @@ Epoch: 4
 # Keep Version in upstream specfile at 0. It will be automatically set
 # to the correct value by Packit for copr and koji builds.
 # IGNORE this comment if you're looking at it in dist-git.
-Version: 2.240.0
-Release: 10%{?dist}
+Version: 2.246.0
+Release: 1%{?dist}
 License: GPL-2.0-only
 URL: https://github.com/containers/%{name}
 Summary: SELinux policies for container runtimes
 Source0: %{url}/archive/v%{version}.tar.gz
-Patch1: https://github.com/containers/container-selinux/pull/397-backport.patch
-Patch2: https://github.com/containers/container-selinux/pull/390-backport.patch
-Patch3: https://patch-diff.githubusercontent.com/raw/containers/container-selinux/pull/412.patch
 BuildArch: noarch
 BuildRequires: make
 BuildRequires: git-core
@@ -114,11 +111,11 @@ fi
 %posttrans
 %selinux_relabel_post
 
-# Empty placeholder check to silence rpmlint
-%check
-
 #define license tag if not already defined
 %{!?_licensedir:%global license %doc}
+
+# Placeholder check to silence rpmlint
+%check
 
 %files
 %doc README.md
@@ -141,9 +138,25 @@ if %{_sbindir}/selinuxenabled ; then
 fi
 
 %changelog
-* Wed Feb 25 2026 Jindrich Novy <jnovy@redhat.com> - 4:2.240.0-10
-- sync with 9.7.z
-- Resolves: RHEL-151428
+* Thu Feb 19 2026 Jindrich Novy <jnovy@redhat.com> - 4:2.246.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.246.0
+- Resolves: RHEL-143694
+
+* Tue Feb 03 2026 Jindrich Novy <jnovy@redhat.com> - 4:2.245.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.245.0
+- Related: RHEL-122178
+
+* Thu Dec 11 2025 Jindrich Novy <jnovy@redhat.com> - 4:2.244.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.244.0
+- Resolves: RHEL-111947
+
+* Fri Sep 12 2025 Jindrich Novy <jnovy@redhat.com> - 4:2.242.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.242.0
+- Related: RHEL-111917
+
+* Fri Aug 29 2025 Jindrich Novy <jnovy@redhat.com> - 4:2.241.0-1
+- update to https://github.com/containers/container-selinux/releases/tag/v2.241.0
+- Resolves: RHEL-111947
 
 * Mon Aug 11 2025 Jindrich Novy <jnovy@redhat.com> - 4:2.240.0-1
 - update to https://github.com/containers/container-selinux/releases/tag/v2.240.0
