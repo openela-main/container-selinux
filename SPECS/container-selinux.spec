@@ -20,11 +20,12 @@
 Epoch: 2
 Name: container-selinux
 Version: 2.229.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2
 URL: %{git0}
 Summary: SELinux policies for container runtimes
 Source0: %{git0}/archive/v%{version}.tar.gz
+Patch0: 0001-user_t-confined-user-container-support.patch
 BuildArch: noarch
 BuildRequires: git
 BuildRequires: pkgconfig(systemd)
@@ -123,6 +124,10 @@ fi
 %{_datadir}/udica/templates/*
 
 %changelog
+* Tue May 05 2026 Jindrich Novy <jnovy@redhat.com> - 2:2.229.0-3
+- add user_t confined user container support (cherry-pick of upstream PR #443)
+- Resolves: RHEL-135342
+
 * Tue Jan 23 2024 Jindrich Novy <jnovy@redhat.com> - 2:2.229.0-2
 - remove watch statements properly for RHEL8 and lower
 - Related: Jira:RHEL-2110
