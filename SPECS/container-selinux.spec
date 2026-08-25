@@ -35,7 +35,7 @@ Epoch: 4
 # Keep Version in upstream specfile at 0. It will be automatically set
 # to the correct value by Packit for copr and koji builds.
 # IGNORE this comment if you're looking at it in dist-git.
-Version: 2.246.0
+Version: 2.248.0
 Release: 1%{?dist}
 License: GPL-2.0-only
 URL: https://github.com/containers/%{name}
@@ -138,6 +138,10 @@ if %{_sbindir}/selinuxenabled ; then
 fi
 
 %changelog
+* Wed May 27 2026 Jindrich Novy <jnovy@redhat.com> - 4:2.248.0-1
+- update to 2.248.0
+- Resolves: RHEL-179240
+
 * Thu Feb 19 2026 Jindrich Novy <jnovy@redhat.com> - 4:2.246.0-1
 - update to https://github.com/containers/container-selinux/releases/tag/v2.246.0
 - Resolves: RHEL-143694
